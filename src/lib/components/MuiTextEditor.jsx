@@ -7,9 +7,8 @@ const DEFAULT_MENUS = [
   { label: "Underline", command: "underline", active: false },
 ];
 
-const MuiTextEditor = ({ defaultValue = "", plugins = [] }) => {
+const MuiTextEditor = ({ editorValue, setEditorValue, plugins = [] }) => {
   const editorRef = useRef(null);
-  const [editorValue, setEditorValue] = useState(defaultValue);
   const [isHtmlView, setIsHtmlView] = useState(false);
   const [formatStates, setFormatStates] = useState({
     bold: false,
@@ -19,9 +18,9 @@ const MuiTextEditor = ({ defaultValue = "", plugins = [] }) => {
 
   useEffect(() => {
     if (editorRef.current && !isHtmlView) {
-      editorRef.current.innerHTML = defaultValue;
+      editorRef.current.innerHTML = editorValue;
     }
-  }, [defaultValue, isHtmlView]);
+  }, []);
 
   const handleInput = () => {
     setEditorValue(editorRef.current.innerHTML);
