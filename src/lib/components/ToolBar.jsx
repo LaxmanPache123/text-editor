@@ -1,6 +1,19 @@
 import React from "react";
 
-const Toolbar = ({ menuItems, formatText, toggleView, isHtmlView, getButtonStyle }) => {
+const Toolbar = ({
+  menuItems,
+  formatText,
+  toggleView,
+  isHtmlView,
+  getButtonStyle,
+  editorRef,
+  plugins,
+}) => {
+  const handlePluginClick = (plugin) => {
+    if (plugin.button.onClick) {
+      plugin.button.onClick(editorRef);
+    }
+  };
   return (
     <div style={styles.toolbar}>
       {menuItems.map((item) => (
@@ -12,6 +25,12 @@ const Toolbar = ({ menuItems, formatText, toggleView, isHtmlView, getButtonStyle
           {item.label}
         </button>
       ))}
+      {plugins.map((plugin, index) => (
+        <button key={index} onClick={() => handlePluginClick(plugin)}>
+          {plugin.button.label}
+        </button>
+      ))}
+
       <button onClick={toggleView}>
         {isHtmlView ? "Normal View" : "HTML View"}
       </button>

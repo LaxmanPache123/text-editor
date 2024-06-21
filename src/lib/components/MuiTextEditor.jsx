@@ -1,7 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import Toolbar from "./ToolBar";
 
-const MuiTextEditor = ({ defaultValue = "", menuItems = [] }) => {
+const DEFAULT_MENUS = [
+  { label: "Bold", command: "bold", active: false },
+  { label: "Italic", command: "italic", active: false },
+  { label: "Underline", command: "underline", active: false },
+];
+
+const MuiTextEditor = ({ defaultValue = "", plugins = [] }) => {
   const editorRef = useRef(null);
   const [editorValue, setEditorValue] = useState(defaultValue);
   const [isHtmlView, setIsHtmlView] = useState(false);
@@ -85,7 +91,7 @@ const MuiTextEditor = ({ defaultValue = "", menuItems = [] }) => {
     }
   };
 
-  const enhancedMenuItems = menuItems.map((item) => ({
+  const enhancedMenuItems = [...DEFAULT_MENUS].map((item) => ({
     ...item,
     active: formatStates[item.command],
   }));
@@ -172,6 +178,8 @@ const MuiTextEditor = ({ defaultValue = "", menuItems = [] }) => {
         toggleView={toggleView}
         isHtmlView={isHtmlView}
         getButtonStyle={getButtonStyle}
+        plugins={plugins}
+        editorRef={editorRef}
       />
       {isHtmlView ? (
         <textarea
