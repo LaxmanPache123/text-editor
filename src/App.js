@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import MuiTextEditor from "./lib/components/MuiTextEditor";
 
 function App() {
+  const menuItems = [
+    { label: "Bold", command: "bold", active: false },
+    { label: "Italic", command: "italic", active: false },
+    { label: "Underline", command: "underline", active: false },
+  ];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Simple Text Editor</h1>
+      <MuiTextEditor menuItems={menuItems} width="100%" height={500} />
     </div>
   );
 }
